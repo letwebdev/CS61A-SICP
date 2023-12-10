@@ -1,3 +1,1 @@
-
-# "CS61A-SICP"
-
+# CS61A: Structure and Interpretation of Computer Programs
