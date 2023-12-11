@@ -101,16 +101,16 @@ def double_eights(n):
     def getFirstEight(number):
         # If only remains one digit
         if (number < 10):
-            return print(False)
+            return False
         if (number % 10 != 8):
-            getFirstEight(number//10)
+            return getFirstEight(number//10)
         else:
-            getSecondEight(number//10)
+            return getSecondEight(number//10)
 
     def getSecondEight(number):
         # If the second is not 8, go to the next round
         if (number % 10 != 8):
-            getFirstEight(number//10)
+            return getFirstEight(number//10)
         else:
-            return print(True)
-    getFirstEight(n)
+            return True
+    return getFirstEight(n)
