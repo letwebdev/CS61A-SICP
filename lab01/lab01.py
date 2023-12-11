@@ -63,22 +63,23 @@ def sum_digits(y: int) -> int:
     "*** YOUR CODE HERE ***"
     sum: int = 0
 
-    def getLeastSignificantDigit(number):
+    def sumLeastSignificantDigitRecursively(number):
         nonlocal sum
-        nonlocal y
-        if (number < 10):
-            sum += number
-            # print('number=', number)
-            # print('sum=', sum)
+        # Add lseast significant digit
+        sum += number % 10
 
-            # Get second least significant digit if exists
-            if y >= 10:
-                y //= 10
-                return getLeastSignificantDigit(y)
-        else:
-            return getLeastSignificantDigit(number % 10)
-    getLeastSignificantDigit(y)
+        # print('number=', number)
+        # print('sum=', sum)
+
+        if (number >= 10):
+            # Remove current least significant digit
+            sumLeastSignificantDigitRecursively(number // 10)
+
+    sumLeastSignificantDigitRecursively(y)
     return sum
+
+
+sum_digits(1234567890)
 
 
 def double_eights(n):
