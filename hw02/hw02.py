@@ -69,7 +69,7 @@ def accumulate(merger, start, n, term):
     "*** YOUR CODE HERE ***"
     accumulated: int = start
     for i in range(1, n+1):
-        start *= term(i)
+        accumulated: int = merger(accumulated, term(i))
     return accumulated
 
 
@@ -87,7 +87,7 @@ def summation_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(summation_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 
 def product_using_accumulate(n, term):
@@ -104,7 +104,7 @@ def product_using_accumulate(n, term):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(product_using_accumulate)).body[0].body]
     ['Expr', 'Return']
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 
 def funception(func1, begin):
@@ -134,6 +134,14 @@ def funception(func1, begin):
     2
     """
     "*** YOUR CODE HERE ***"
+    def func2(end) -> int:
+        if (begin >= end):
+            return 1
+        product: int = 1
+        for i in range(begin, end):
+            product *= func1(i)
+        return product
+    return func2
 
 
 def mul_by_num(num):
