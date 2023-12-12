@@ -1,3 +1,4 @@
 [scripts]
 test="python3 ok --local --verbose"
-testQuestion="python3 ok --local --verbose --question"
+test_question="pipenv run test --question"
+check_score="pipenv run test --score"
