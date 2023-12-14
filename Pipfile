@@ -1,4 +1,5 @@
 [scripts]
 test="python3 ok --local --verbose"
 test_question="pipenv run test --question"
+test_interactive="pipenv run test --unlock --question"
 check_score="pipenv run test --score"
