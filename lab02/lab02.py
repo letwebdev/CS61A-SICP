@@ -14,7 +14,8 @@ def composer(f, g):
     >>> a2(5)
     108
     """
-    return lambda x: f(g(x))
+    return lambda x: f(g(x)) == g(f(x)) and True
+
 
 def composite_identity(f, g):
     """
@@ -31,6 +32,9 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
+    def returned(x):
+        return (f(g(x)) == g(f(x)))
+    return returned
 
 
 def sum_digits(y):
@@ -38,6 +42,7 @@ def sum_digits(y):
     while y > 0:
         total, y = total + y % 10, y // 10
     return total
+
 
 def is_prime(n):
     if n == 1:
@@ -48,6 +53,7 @@ def is_prime(n):
             return False
         k += 1
     return True
+
 
 def count_cond(condition):
     """Returns a function with one parameter N that counts all the numbers from
@@ -75,6 +81,15 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
+    def counter(n):
+        i = 1
+        count = 0
+        while i <= n:
+            if (condition(n, i)):
+                count += 1
+            i += 1
+        return count
+    return counter
 
 
 def multiple(a, b):
@@ -86,7 +101,6 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
-
 
 
 def cycle(f1, f2, f3):
@@ -117,3 +131,20 @@ def cycle(f1, f2, f3):
     """
     "*** YOUR CODE HERE ***"
 
+    def g(n: int):
+        def h(x):
+            returned = x
+            nonlocal n
+            while n > 0:
+                returned = f1(returned)
+                n -= 1
+                if (n > 0):
+                    n -= 1
+                    returned = f2(returned)
+                    if (n > 0):
+                        n -= 1
+                        returned = f3(returned)
+
+            return returned
+        return h
+    return g
