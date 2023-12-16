@@ -84,10 +84,13 @@ def replace_loki_at_leaf(t, lokis_replacement):
     originalLabel = label(t)
     newLabel = label(replaceTreeLeafLabel(tree(originalLabel)))
 
-    newTree = tree(newLabel, replaceTreeLeafLabel(branches(t)))
+    originalBranches = branches(t)
+    newBranches = replaceTreeLeafLabel(tree(originalBranches))
+    print(originalBranches)
 
+    newTree = tree(newLabel, newBranches)
+    print(newTree)
     return newTree
-    # return replaceTreeLeafLabel(t)
 
 
 # Tree ADT
