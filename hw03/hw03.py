@@ -184,10 +184,11 @@ def count_coins(total):
         elif m == 0:
             return 0
         else:
-            print(n, m)
+            # print(n, m)
             return count_partitions(n-m, m) + count_partitions(n, next_smaller_coin_of_number(m))
     return count_partitions(total, 15)
-    # TODO
+    # Solution: largest denomination is 25 instead of 15
+    return count_partitions(total, 25)
 
 
 def print_move(origin, destination):
