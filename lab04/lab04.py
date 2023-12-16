@@ -13,7 +13,8 @@ def my_map(fn, seq):
     2023
     [None, None, None]
     """
-    return ______
+    return [fn(element) for element in seq]
+
 
 def my_filter(pred, seq):
     """Keeps elements in seq only if they satisfy pred.
@@ -31,7 +32,8 @@ def my_filter(pred, seq):
     >>> my_filter(lambda x: max(5, x) == 5, [1, 2, 3, 4, 5, 6, 7])
     [1, 2, 3, 4, 5]
     """
-    return ______
+    return [element for element in seq if (pred(element))]
+
 
 def my_reduce(combiner, seq):
     """Combines elements in seq using combiner.
@@ -46,6 +48,14 @@ def my_reduce(combiner, seq):
     11
     """
     "*** YOUR CODE HERE ***"
+    if (len(seq) == 1):
+        return seq[0]
+
+    combined = combiner(seq[0], seq[1])
+    for i in range(2, len(seq), 1):
+        combined = combiner(combined, seq[i])
+    return combined
+
 
 def my_map_syntax_check():
     """Check that your two_of_three code consists of nothing but a return statement.
@@ -56,6 +66,7 @@ def my_map_syntax_check():
     ['Expr', 'Return']
     """
     # You don't need to edit this function. It's just here to check your work.
+
 
 def my_filter_syntax_check():
     """Check that your two_of_three code consists of nothing but a return statement.
@@ -117,6 +128,19 @@ def merge(lst1, lst2):
     True
     """
     "*** YOUR CODE HERE ***"
+    # TODO
+    lst3: list = lst1+lst2
+    for index in range(len(lst3)):
+        if index == len(lst3)-1:
+            break
+
+        if lst3[index] > lst3[index+1]:
+            # Swap
+            temp = lst3[index]
+            lst3[index] = lst3[index+1]
+            lst3[index+1] = temp
+
+    return lst3
 
 
 def summation(n, term):
@@ -148,4 +172,3 @@ def count_palindromes(L):
     2
     """
     return ______
-
