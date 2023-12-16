@@ -65,6 +65,29 @@ def replace_loki_at_leaf(t, lokis_replacement):
     True
     """
     "*** YOUR CODE HERE ***"
+    labelNameToReplace = "loki"
+    labelToReplaceWith = lokis_replacement
+
+    def replaceTreeLeafLabel(tr):
+        if (is_leaf(tr) and label(tr) == labelNameToReplace):
+            # Replace the label
+            # BUG: Invalid
+            return tree(labelToReplaceWith)
+        # else
+        for branch in branches(tr):
+            replaceTreeLeafLabel(branch)
+
+        # else
+        # Return untouched
+        return tr
+
+    originalLabel = label(t)
+    newLabel = label(replaceTreeLeafLabel(tree(originalLabel)))
+
+    newTree = tree(newLabel, replaceTreeLeafLabel(branches(t)))
+
+    return newTree
+    # return replaceTreeLeafLabel(t)
 
 
 # Tree ADT
