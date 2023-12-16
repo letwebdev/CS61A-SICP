@@ -1,5 +1,8 @@
+from math import sqrt
+
+
 def berry_finder(t):
-    """Returns True if t contains a node with the value 'berry' and 
+    """Returns True if t contains a node with the value 'berry' and
     False otherwise.
 
     >>> scrat = tree('berry')
@@ -16,6 +19,20 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    def searchTree(tr):
+        # print('label: ', label(tr))
+        # print('branches: ', branches(tr))
+        if (label(tr) == 'berry'):
+            # print('end')
+            return True
+        # Search the branches's branch if exists
+        for branch in branches(tr):
+            # print('branch: ', branch)
+            if (searchTree(branch)):
+                return True
+        # Berry not found
+        return False
+    return searchTree(t)
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -50,7 +67,6 @@ def replace_loki_at_leaf(t, lokis_replacement):
     "*** YOUR CODE HERE ***"
 
 
-
 # Tree ADT
 
 def tree(label, branches=[]):
@@ -64,6 +80,7 @@ def tree(label, branches=[]):
             assert is_tree(branch), 'branches must be trees'
         return [label] + list(branches)
 
+
 def label(tree):
     """Return the label value of a tree."""
     if change_abstraction.changed:
@@ -71,12 +88,14 @@ def label(tree):
     else:
         return tree[0]
 
+
 def branches(tree):
     """Return the list of branches of the given tree."""
     if change_abstraction.changed:
         return tree['branches']
     else:
         return tree[1:]
+
 
 def is_tree(tree):
     """Returns True if the given tree is a tree, and False otherwise."""
@@ -95,9 +114,11 @@ def is_tree(tree):
                 return False
         return True
 
+
 def is_leaf(tree):
     """Returns True if the given tree is a leaf. (i.e. It has no branches.)"""
     return not branches(tree)
+
 
 def print_tree(t, indent=0):
     """Print a representation of this tree in which each node is
@@ -122,6 +143,7 @@ def print_tree(t, indent=0):
     for b in branches(t):
         print_tree(b, indent + 1)
 
+
 def copy_tree(t):
     """Returns a copy of t. Only for testing purposes.
 
@@ -134,7 +156,6 @@ def copy_tree(t):
     return tree(label(t), [copy_tree(b) for b in branches(t)])
 
 
-from math import sqrt
 def distance(city_a, city_b):
     """
     >>> city_a = make_city('city_a', 0, 1)
@@ -147,6 +168,7 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+
 
 def closer_city(lat, lon, city_a, city_b):
     """
@@ -164,6 +186,7 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+
 
 def check_city_abstraction():
     """
@@ -190,6 +213,8 @@ def check_city_abstraction():
 
 # Treat all the following code as being behind an abstraction layer,
 # you shouldn't need to look at it.
+
+
 def make_city(name, lat, lon):
     """
     >>> city = make_city('Berkeley', 0, 1)
@@ -201,9 +226,10 @@ def make_city(name, lat, lon):
     1
     """
     if change_abstraction.changed:
-        return {"name" : name, "lat" : lat, "lon" : lon}
+        return {"name": name, "lat": lat, "lon": lon}
     else:
         return [name, lat, lon]
+
 
 def get_name(city):
     """
@@ -216,6 +242,7 @@ def get_name(city):
     else:
         return city[0]
 
+
 def get_lat(city):
     """
     >>> city = make_city('Berkeley', 0, 1)
@@ -226,6 +253,7 @@ def get_lat(city):
         return city["lat"]
     else:
         return city[1]
+
 
 def get_lon(city):
     """
@@ -287,5 +315,8 @@ def change_abstraction(change):
     """
     change_abstraction.changed = change
 
-change_abstraction.changed = False
 
+change_abstraction.changed = False
+sproul = tree(
+    'roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
+berry_finder(sproul)
