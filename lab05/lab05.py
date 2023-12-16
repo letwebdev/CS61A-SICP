@@ -91,6 +91,7 @@ def replace_loki_at_leaf(t, lokis_replacement):
     newTree = tree(newLabel, newBranches)
     print(newTree)
     return newTree
+    # TODO
 
 
 # Tree ADT
@@ -194,6 +195,14 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    latitude_a = get_lat(city_a)
+    longitude_a = get_lon(city_a)
+    latitude_b = get_lat(city_b)
+    longitude_b = get_lon(city_b)
+
+    def getDistanceOfTwoCoordinatePairs(x_1, y_1, x_2, y_2):
+        return sqrt((x_1 - x_2)**2 + (y_1 - y_2)**2)
+    return getDistanceOfTwoCoordinatePairs(latitude_a, longitude_a, latitude_b, longitude_b)
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -212,6 +221,13 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    theCity = make_city("the city", lat, lon)
+
+    # 'equidistance' not considered
+    if ((distance(theCity, city_a)) < distance(theCity, city_b)):
+        return get_name(city_a)
+    else:
+        return get_name(city_b)
 
 
 def check_city_abstraction():
