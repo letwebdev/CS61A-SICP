@@ -1,4 +1,5 @@
-HW_SOURCE_FILE=__file__
+from operator import sub, mul
+HW_SOURCE_FILE = __file__
 
 
 def num_eights(n):
@@ -25,6 +26,16 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    count = 0
+
+    def recursiveNum_eights(n):
+        nonlocal count
+        if (n % 10 == 8):
+            count += 1
+        elif (n % 10 == n):
+            return count
+        return recursiveNum_eights(n//10)
+    return recursiveNum_eights(n)
 
 
 def digit_distance(n):
@@ -47,6 +58,12 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    # If not remain only one digit
+    if (n // 10 > 0):
+        # The last digit, the last but one digit
+        return abs(n % 10-(n % 100)//10) + digit_distance(n//10)
+    else:
+        return 0
 
 
 def interleaved_sum(n, odd_term, even_term):
@@ -69,6 +86,19 @@ def interleaved_sum(n, odd_term, even_term):
     True
     """
     "*** YOUR CODE HERE ***"
+    # i = 1
+    # def helper(n, f1, f2):
+    #     nonlocal i
+    #     if i == n:
+    #         return n
+    #     else:
+    #         i += 1
+    #         return f1(i)+helper(n, f2, f1)
+    # return helper(n, odd_term, even_term)
+    if n == 0:
+        return 0
+    # Only when n is even
+    return odd_term(n) + interleaved_sum(n-1, even_term, odd_term)
 
 
 def next_larger_coin(coin):
@@ -88,6 +118,7 @@ def next_larger_coin(coin):
     elif coin == 10:
         return 25
 
+
 def next_smaller_coin(coin):
     """Returns the next smaller coin in order.
     >>> next_smaller_coin(25)
@@ -104,6 +135,7 @@ def next_smaller_coin(coin):
         return 5
     elif coin == 5:
         return 1
+
 
 def count_coins(total):
     """Return the number of ways to make change using coins of value of 1, 5, 10, 25.
@@ -123,11 +155,45 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def next_smaller_coin_of_number(number):
+        """Returns the next smaller coin in order.
+        >>> next_smaller_coin(25)
+        10
+        >>> next_smaller_coin(10)
+        5
+        >>> next_smaller_coin(5)
+        1
+        >>> next_smaller_coin(2) # Other values return None
+        """
+        if number > 10:
+            return 10
+        elif number > 5:
+            return 5
+        elif number > 1:
+            return 1
+        else:
+            return 0
+
+    # Copied from https://www.composingprograms.com/pages/17-recursive-functions.html#example-partitions
+    def count_partitions(n, m):
+        """Count the ways to partition n using parts up to m."""
+        if n == 0:
+            return 1
+        elif n < 0:
+            return 0
+        elif m == 0:
+            return 0
+        else:
+            print(n, m)
+            return count_partitions(n-m, m) + count_partitions(n, next_smaller_coin_of_number(m))
+    return count_partitions(total, 15)
+    # TODO
 
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
     print("Move the top disk from rod", origin, "to rod", destination)
+
 
 def move_stack(n, start, end):
     """Print the moves required to move n disks on the start pole to the end
@@ -160,8 +226,6 @@ def move_stack(n, start, end):
     "*** YOUR CODE HERE ***"
 
 
-from operator import sub, mul
-
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
 
@@ -174,4 +238,3 @@ def make_anonymous_factorial():
     True
     """
     return 'YOUR_EXPRESSION_HERE'
-
