@@ -6,6 +6,12 @@ def filter(condition, lst):
     [2, 0]
     """
     "*** YOUR CODE HERE ***"
+    tempList = []
+    for element in lst:
+        if (condition(element)):
+            tempList.append(element)
+    lst = tempList
+    # Solution: use list.remove()
 
 
 def deep_map_mut(func, lst):
@@ -33,9 +39,14 @@ def deep_map_mut(func, lst):
     True
     """
     "*** YOUR CODE HERE ***"
+    for index, element in enumerate(lst):
+        if (type(element) == list):
+            deep_map_mut(func, element)
+        else:
+            lst[index] = func(element)
 
 
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def max_path_sum(t):
@@ -50,7 +61,7 @@ def max_path_sum(t):
     "*** YOUR CODE HERE ***"
 
 
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def has_path(t, word):
@@ -87,7 +98,6 @@ def has_path(t, word):
     "*** YOUR CODE HERE ***"
 
 
-
 # Tree ADT
 
 def tree(label, branches=[]):
@@ -96,13 +106,16 @@ def tree(label, branches=[]):
         assert is_tree(branch), 'branches must be trees'
     return [label] + list(branches)
 
+
 def label(tree):
     """Return the label value of a tree."""
     return tree[0]
 
+
 def branches(tree):
     """Return the list of branches of the given tree."""
     return tree[1:]
+
 
 def is_tree(tree):
     """Returns True if the given tree is a tree, and False otherwise."""
@@ -113,11 +126,13 @@ def is_tree(tree):
             return False
     return True
 
+
 def is_leaf(tree):
     """Returns True if the given tree's list of branches is empty, and False
     otherwise.
     """
     return not branches(tree)
+
 
 def print_tree(t, indent=0):
     """Print a representation of this tree in which each node is
@@ -142,6 +157,7 @@ def print_tree(t, indent=0):
     for b in branches(t):
         print_tree(b, indent + 1)
 
+
 def copy_tree(t):
     """Returns a copy of t. Only for testing purposes.
 
@@ -152,4 +168,3 @@ def copy_tree(t):
     5
     """
     return tree(label(t), [copy_tree(b) for b in branches(t)])
-
