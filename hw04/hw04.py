@@ -113,6 +113,43 @@ def has_path(t, word):
     """
     assert len(word) > 0, 'no path for empty word.'
     "*** YOUR CODE HERE ***"
+    # Root
+    if label(t) != word[0]:
+        return False
+
+    # --------------
+    # Branch of root
+    tr = (branches(t))
+
+    def containingCharacterInLabel(character, tr):
+        labelOfTheTree = label(tr)
+        if labelOfTheTree == character:
+            return True
+        elif is_tree(labelOfTheTree):
+            return containingCharacterInLabel(character, labelOfTheTree)
+        else:
+            return False
+
+    def containingCharacterInBranchLabel(character, tr):
+        branchesOfTheTree = branches(tr)
+        if containingCharacterInLabel(character, branchesOfTheTree):
+            return True
+        else:
+            return False
+
+    for character in word[1:]:
+        if containingCharacterInLabel(character, tr) or containingCharacterInBranchLabel(character, tr):
+            # print(tr)
+            # print(label(tr))
+            tr = (branches(tr))
+        # print("--------")
+        # print(tr)
+        # print(label(tr))
+        # print(label(label(tr)))
+            continue
+        else:
+            return False
+    return True
 
 
 # Tree ADT
