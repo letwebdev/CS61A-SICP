@@ -61,17 +61,21 @@ def max_path_sum(t):
     "*** YOUR CODE HERE ***"
     sum = 0
     sum += label(t)
+    i = 0
+    sumOfEachBranch: list
 
-    def sumDownEachBranch(tr):
-        for branch in branches(tr):
+    def sumDownEachBranch(tr, index):
+        for j, branch in enumerate(branches(tr)):
             if is_leaf(branch):
-                return label(branch)
+                # return label(branch)
+                sumOfEachBranch[index, j] = label(branch)
             else:
-                return label(branch) + sumDownEachBranch(branch)
+                return label(branch) + sumDownEachBranch(branch, index+1)
 
     # sum += sumDownEachBranch(t)
-    sum += max(sumDownEachBranch(t))
+    sum += max(sumDownEachBranch(t, 0))
     return sum
+    # TODO
 
 
 HW_SOURCE_FILE = __file__
