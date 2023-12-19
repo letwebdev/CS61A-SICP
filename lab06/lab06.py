@@ -59,6 +59,12 @@ def count_occurrences(t, n, x):
     2
     """
     "*** YOUR CODE HERE ***"
+    count = 0
+    # First n elements of t
+    for index in range(0, n):
+        if next(t) == x:
+            count += 1
+    return count
 
 
 def repeated(t, k):
@@ -82,6 +88,17 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    startPoint = next(t)
+    count = 1
+    while True:
+        currentPoint = next(t)
+        if startPoint == currentPoint:
+            count += 1
+            if count == k:
+                return startPoint
+        else:
+            startPoint = currentPoint
+            count = 1
 
 
 def partial_reverse(s, start):
@@ -97,3 +114,8 @@ def partial_reverse(s, start):
     [1, 2, 7, 6, 5, 3, 4]
     """
     "*** YOUR CODE HERE ***"
+    # print(s[0:start])
+    # print(s[start:])
+    # print(reversed(s[start:]))
+    s[0:start].extend(s[start:].reverse())
+    # TODO
