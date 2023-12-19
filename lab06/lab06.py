@@ -1,4 +1,4 @@
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def insert_items(s, before, after):
@@ -27,6 +27,14 @@ def insert_items(s, before, after):
     True
     """
     "*** YOUR CODE HERE ***"
+    for index, element in enumerate(s):
+        # Prevent infinite loop when `before` and `after` are equal
+        if element == s[index-1]:
+            continue
+
+        if element == before:
+            s.insert(index+1, after)
+    return s
 
 
 def count_occurrences(t, n, x):
@@ -89,4 +97,3 @@ def partial_reverse(s, start):
     [1, 2, 7, 6, 5, 3, 4]
     """
     "*** YOUR CODE HERE ***"
-
