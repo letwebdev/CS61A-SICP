@@ -34,10 +34,18 @@ class Account:
             return "Can't withdraw that amount"
         self.balance = self.balance - amount
         return self.balance
+
     def time_to_retire(self, amount):
         """Return the number of years until balance would grow to amount."""
         assert self.balance > 0 and amount > 0 and self.interest > 0
         "*** YOUR CODE HERE ***"
+        passedYear = 0
+        balance = self.balance
+        while True:
+            passedYear += 1
+            balance = balance*(1+self.interest)
+            if balance >= amount:
+                return passedYear
 
 
 class FreeChecking(Account):
@@ -68,3 +76,16 @@ class FreeChecking(Account):
 
     "*** YOUR CODE HERE ***"
 
+    def withdraw(self, amount):
+        if self.free_withdrawals > 0:
+            self.free_withdrawals -= 1
+        else:
+            # Assume that balance > withdraw_fee
+            self.balance -= self.withdraw_fee
+        if amount > self.balance:
+            return "Insufficient funds"
+        if amount > self.max_withdrawal:
+            return "Can't withdraw that amount"
+        self.balance = self.balance - amount
+
+        return self.balance
