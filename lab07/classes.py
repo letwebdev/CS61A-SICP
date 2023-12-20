@@ -165,7 +165,10 @@ class AICard(Card):
         True
         """
         "*** YOUR CODE HERE ***"
-        implemented = False
+        player.draw()
+        player.draw()
+
+        implemented = True
         # You should add your implementation above this.
         if implemented:
             print(f"{self.name} allows me to draw two cards!")
@@ -208,12 +211,21 @@ class TutorCard(Card):
         True
         """
         "*** YOUR CODE HERE ***"
-        added = False
+        if player.hand == []:
+            return
+
+        cardToCopy = player.hand[0]
+        card = Card(cardToCopy.name, cardToCopy.attack, cardToCopy.defense)
+        player.hand.append(card)
+        added = True
         # You should add your implementation above this.
         if added:
             print(f"{self.name} allows me to add a copy of a card to my hand!")
 
     "*** YOUR CODE HERE ***"
+
+    def power(self, opponent_card):
+        return -float('inf')-opponent_card.defense
 
     def copy(self):
         """
@@ -248,7 +260,27 @@ class TACard(Card):
         600 500
         """
         "*** YOUR CODE HERE ***"
-        best_card = None
+        if player.hand == []:
+            return
+
+        # Get card with highest power(with highest attack here)
+        highestPower = 0
+        indexOfCardWithHighestPower = 0
+        for index, card in enumerate((player.hand)):
+            # if card is TACard or card is TutorCard:
+            if isinstance(card, TutorCard):
+                continue
+            highestPower = max(highestPower, card.attack)
+            if card.attack == highestPower:
+                indexOfCardWithHighestPower = index
+        cardWithHighestPower = player.hand[indexOfCardWithHighestPower]
+
+        best_card = cardWithHighestPower
+
+        self.attack += cardWithHighestPower.attack
+        self.defense += cardWithHighestPower.defense
+        player.hand.pop(indexOfCardWithHighestPower)
+
         # You should add your implementation above this.
         if best_card:
             print(
@@ -381,4 +413,3 @@ class Game:
         """
         print('{}\'s score: {}'.format(self.player1.name, self.p1_score))
         print('Opponent\'s score: {}'.format(self.p2_score))
-
