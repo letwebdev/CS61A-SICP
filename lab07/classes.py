@@ -2,6 +2,7 @@
 
 import random
 
+
 class Card:
     cardtype = 'Staff'
 
@@ -23,6 +24,9 @@ class Card:
         500
         """
         "*** YOUR CODE HERE ***"
+        self.name = name
+        self.attack = attack
+        self.defense = defense
 
     def power(self, opponent_card):
         """
@@ -41,7 +45,7 @@ class Card:
         -100
         """
         "*** YOUR CODE HERE ***"
-
+        return self.attack-opponent_card.defense
 
     def effect(self, opponent_card, player, opponent):
         """
@@ -63,6 +67,7 @@ class Card:
         """
         return Card(self.name, self.attack, self.defense)
 
+
 class Player:
     def __init__(self, deck, name):
         """Initialize a Player object.
@@ -79,6 +84,9 @@ class Player:
         self.deck = deck
         self.name = name
         "*** YOUR CODE HERE ***"
+        self.hand = []
+        for _ in range(5):
+            self.hand.append(deck.draw())
 
     def draw(self):
         """Draw a card from the player's deck and add it to their hand.
@@ -93,6 +101,8 @@ class Player:
         """
         assert not self.deck.is_empty(), 'Deck is empty!'
         "*** YOUR CODE HERE ***"
+        card = self.deck.draw()
+        self.hand.append(card)
 
     def play(self, index):
         """Remove and return a card from the player's hand at the given INDEX.
@@ -109,14 +119,14 @@ class Player:
         2
         """
         "*** YOUR CODE HERE ***"
-
+        return self.hand.pop(index)
 
     def display_hand(self):
         """
         Display the player's current hand to the user.
         """
         print('Your hand:')
-        for card_index, displayed_card in zip(range(len(self.hand)),[str(card) for card in self.hand]):
+        for card_index, displayed_card in zip(range(len(self.hand)), [str(card) for card in self.hand]):
             indent = ' '*(5 - len(str(card_index)))
             print(card_index, indent + displayed_card)
 
@@ -129,6 +139,7 @@ class Player:
 ######################
 # Optional Questions #
 ######################
+
 
 class AICard(Card):
     cardtype = 'AI'
@@ -164,6 +175,7 @@ class AICard(Card):
         Create a copy of this card.
         """
         return AICard(self.name, self.attack, self.defense)
+
 
 class TutorCard(Card):
     cardtype = 'Tutor'
@@ -203,12 +215,12 @@ class TutorCard(Card):
 
     "*** YOUR CODE HERE ***"
 
-
     def copy(self):
         """
         Create a copy of this card.
         """
         return TutorCard(self.name, self.attack, self.defense)
+
 
 class TACard(Card):
     cardtype = 'TA'
@@ -239,14 +251,15 @@ class TACard(Card):
         best_card = None
         # You should add your implementation above this.
         if best_card:
-            print(f"{self.name} discards {best_card.name} from my hand to increase its own power!")
-
+            print(
+                f"{self.name} discards {best_card.name} from my hand to increase its own power!")
 
     def copy(self):
         """
         Create a copy of this card.
         """
         return TACard(self.name, self.attack, self.defense)
+
 
 class InstructorCard(Card):
     cardtype = 'Instructor'
@@ -315,6 +328,7 @@ class Deck:
         """
         return Deck([card.copy() for card in self.cards])
 
+
 class Game:
     win_score = 8
 
@@ -348,7 +362,8 @@ class Game:
             result = 'tied'
         # Display results to user.
         print('You {} this round!'.format(result))
-        print('{}\'s card: {}; Power: {}'.format(self.player1.name, p1_card, p1_power))
+        print('{}\'s card: {}; Power: {}'.format(
+            self.player1.name, p1_card, p1_power))
         print('Opponent\'s card: {}; Power: {}'.format(p2_card, p2_power))
 
     def game_won(self):
@@ -366,3 +381,4 @@ class Game:
         """
         print('{}\'s score: {}'.format(self.player1.name, self.p1_score))
         print('Opponent\'s score: {}'.format(self.p2_score))
+
